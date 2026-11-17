@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ruang Cerita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f7f5;
+      --surface: #ffffff;
+      --primary: #2d6a4f;
+      --primary-hover: #1b4332;
+      --primary-light: #e8f3ee;
+      --text: #1f2937;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --radius: 12px;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Auth Screen */
+    .auth-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .auth-card {
+      background: var(--surface);
+      padding: 36px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--primary-light);
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .brand h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .brand p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+    }
+
+    .primary-btn {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .primary-btn:hover {
+      background: var(--primary-hover);
+    }
+
+    .demo-box {
+      margin-top: 20px;
+      padding: 12px;
+      background: var(--bg);
+      border-radius: 8px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Topbar */
+    .topbar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      margin-bottom: 28px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-mini {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon.mini {
+      width: 38px;
+      height: 38px;
+      font-size: 18px;
+      margin-bottom: 0;
+    }
+
+    .brand-mini h2 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    .brand-mini small {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .user-box {
+      text-align: right;
+    }
+
+    .role-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+      background: var(--primary-light);
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .user-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    .ghost-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .ghost-btn:hover {
+      background: var(--bg);
+    }
+
+    /* Dashboard Cards */
+    .card {
+      background: var(--surface);
+      padding: 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .card h3 {
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+    }
+
+    .story-item {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .story-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge.pending { background: #fef3c7; color: #92400e; }
+    .badge.replied { background: #d1fae5; color: #065f46; }
+
+    .reply-box {
+      margin-top: 12px;
+      padding: 12px;
+      background: var(--primary-light);
+      border-left: 3px solid var(--primary);
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div id="login-screen" class="screen auth-screen">
+    <div class="auth-card">
+      <div class="brand">
+        <div class="brand-icon">🌿</div>
+        <h1>Ruang Cerita</h1>
+        <p>Portal Siswa & Guru / Konselor</p>
+      </div>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input id="login-username" value="siswa1" />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input id="login-password" type="password" value="siswa123" />
+      </div>
+
+      <div class="form-group">
+        <label>Masuk sebagai</label>
+        <select id="login-role">
+          <option value="siswa">Siswa</option>
+          <option value="guru">Guru / Konselor</option>
+        </select>
+      </div>
+
+      <button id="login-btn" class="primary-btn">Masuk ke Portal</button>
+
+      <div class="demo-box">
+        <strong>Akun demo:</strong><br />
+        • siswa1 / siswa123<br />
+        • siswa2 / siswa123<br />
+        • guru / guru123
+      </div>
+    </div>
+  </div>
+
+  <div id="app-screen" class="screen hidden">
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand-mini">
+          <div class="brand-icon mini">🌿</div>
+          <div>
+            <h2>Ruang Cerita</h2>
+            <small>Portal Siswa & Guru</small>
+          </div>
+        </div>
+
+        <div class="nav-right">
+          <div class="user-box">
+            <div id="user-role-label" class="role-label">ROLE</div>
+            <div id="user-name-label" class="user-name">Nama</div>
+          </div>
+          <button id="logout-btn" class="ghost-btn">Keluar</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="app-main" class="container"></main>
+  </div>
+
+  <script>
+    // Demo Accounts
+    const USERS = {
+      siswa1: { password: "siswa123", role: "siswa", name: "Budi Santoso (Kelas XI-A)" },
+      siswa2: { password: "siswa123", role: "siswa", name: "Siti Aminah (Kelas X-C)" },
+      guru: { password: "guru123", role: "guru", name: "Ibu Ratna, S.Pd. (Guru BK)" }
+    };
+
+    // Initial Mock Data
+    const DEFAULT_STORIES = [
+      {
+        id: 1,
+        author: "siswa1",
+        displayName: "Budi Santoso",
+        category: "Akademik & Stres",
+        content: "Belakangan ini saya merasa kewalahan membagi waktu antara persiapan lomba dan tugas sekolah.",
+        status: "replied",
+        reply: "Halo Budi, terima kasih sudah bercerita. Yuk kita atur jadwal ketemu di ruang BK besok jam istirahat pertama untuk menyusun skala prioritas bersama.",
+        createdAt: "16 Nov 2026"
+      }
+    ];
+
+    let currentUser = null;
+    let stories = JSON.parse(localStorage.getItem("ruang_cerita_data")) || DEFAULT_STORIES;
+
+    // DOM Elements
+    const loginScreen = document.getElementById("login-screen");
+    const appScreen = document.getElementById("app-screen");
+    const appMain = document.getElementById("app-main");
+
+    // Login Handler
+    document.getElementById("login-btn").addEventListener("click", () => {
+      const username = document.getElementById("login-username").value.trim();
+      const password = document.getElementById("login-password").value;
+      const role = document.getElementById("login-role").value;
+
+      const user = USERS[username];
+      if (!user || user.password !== password || user.role !== role) {
+        alert("Username, password, atau peran tidak sesuai dengan akun demo.");
+        return;
+      }
+
+      currentUser = { username, ...user };
+      enterApp();
+    });
+
+    // Logout Handler
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      currentUser = null;
+      appScreen.classList.add("hidden");
+      loginScreen.classList.remove("hidden");
+    });
+
+    function saveStories() {
+      localStorage.setItem("ruang_cerita_data", JSON.stringify(stories));
+    }
+
+    function enterApp() {
+      loginScreen.classList.add("hidden");
+      appScreen.classList.remove("hidden");
+      document.getElementById("user-role-label").textContent = currentUser.role === "guru" ? "Guru / Konselor" : "Siswa";
+      document.getElementById("user-name-label").textContent = currentUser.name;
+
+      renderDashboard();
+    }
+
+    function renderDashboard() {
+      if (currentUser.role === "siswa") {
+        renderSiswaView();
+      } else {
+        renderGuruView();
+      }
+    }
+
+    // View: Siswa
+    function renderSiswaView() {
+      const myStories = stories.filter(s => s.author === currentUser.username);
+
+      appMain.innerHTML = `
+        <div class="card">
+          <h3>✍️ Tulis Cerita Baru</h3>
+          <div class="form-group">
+            <label>Topik Cerita</label>
+            <select id="story-category">
+              <option value="Akademik & Stres">Akademik & Stres</option>
+              <option value="Pertemanan & Sosial">Pertemanan & Sosial</option>
+              <option value="Keluarga">Keluarga</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Identitas Tampilan</label>
+            <select id="story-anon">
+              <option value="named">Gunakan Nama Asli (${currentUser.name})</option>
+              <option value="anon">Kirim sebagai Anonim</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Isi Cerita</label>
+            <textarea id="story-content" rows="4" placeholder="Ceritakan apa yang sedang kamu rasakan..."></textarea>
+          </div>
+          <button id="submit-story-btn" class="primary-btn">Kirim ke Konselor</button>
+        </div>
+
+        <div class="card">
+          <h3>📬 Riwayat Ceritaku</h3>
+          ${myStories.length === 0 ? "<p style='color:var(--text-muted)'>Belum ada cerita yang dikirim.</p>" : myStories.map(s => `
+            <div class="story-item">
+              <div class="story-header">
+                <span><strong>${s.category}</strong> • ${s.createdAt} (${s.displayName})</span>
+                <span class="badge ${s.status}">${s.status === "replied" ? "Sudah Dibalas" : "Menunggu Balasan"}</span>
+              </div>
+              <p>${s.content}</p>
+              ${s.reply ? `<div class="reply-box"><strong>Balasan Konselor:</strong><br/>${s.reply}</div>` : ""}
+            </div>
+          `).join("")}
+        </div>
+      `;
+
+      document.getElementById("submit-story-btn").addEventListener("click", () => {
+        const category = document.getElementById("story-category").value;
+        const isAnon = document.getElementById("story-anon").value === "anon";
+        const content = document.getElementById("story-content").value.trim();
+
+        if (!content) return alert("Isi cerita tidak boleh kosong.");
+
+        stories.unshift({
+          id: Date.now(),
+          author: currentUser.username,
+          displayName: isAnon ? "Siswa Anonim" : currentUser.name,
+          category,
+          content,
+          status: "pending",
+          reply: "",
+          createdAt: new Date().toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })
+        });
+
+        saveStories();
+        renderSiswaView();
+      });
+    }
+
+    // View: Guru / Konselor
+    function renderGuruView() {
+      appMain.innerHTML = `
+        <div class="card">
+          <h3>📥 Daftar Cerita Masuk (${stories.length})</h3>
+          ${stories.map(s => `
+            <div class="story-item">
+              <div class="story-header">
+                <span><strong>${s.displayName}</strong> • ${s.category} • ${s.createdAt}</span>
+                <span class="badge ${s.status}">${s.status === "replied" ? "Sudah Dibalas" : "Perlu Respon"}</span>
+              </div>
+              <p style="margin-bottom:12px;">${s.content}</p>
+              ${s.reply 
+                ? `<div class="reply-box"><strong>Respon Anda:</strong><br/>${s.reply}</div>` 
+                : `
+                  <div class="form-group" style="margin-bottom:8px;">
+                    <textarea id="reply-input-${s.id}" rows="2" placeholder="Tulis tanggapan atau jadwal sesi konseling..."></textarea>
+                  </div>
+                  <button class="primary-btn" style="width:auto; padding:8px 16px;" onclick="sendReply(${s.id})">Kirim Balasan</button>
+                `
+              }
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    window.sendReply = function(id) {
+      const input = document.getElementById(`reply-input-${id}`);
+      const text = input.value.trim();
+      if (!text) return alert("Tulis balasan terlebih dahulu.");
+
+      const story = stories.find(s => s.id === id);
+      if (story) {
+        story.reply = text;
+        story.status = "replied";
+        saveStories();
+        renderGuruView();
+      }
+    };
+  </script>
+</body>
+</html>
